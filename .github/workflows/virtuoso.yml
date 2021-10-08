@@ -1,0 +1,32 @@
+name: Push/PR pipeline
+
+on:
+  push:
+
+env:
+  TAG: "v0.0.0" # needed for goreleaser windows builds
+  REPO_FULL_NAME: ${{ github.event.repository.full_name }}
+  ORIGINAL_REPO_NAME: "newrelic/nri-redis"
+  GO_VERSION: '1.16'
+  DOCKER_LOGIN_AVAILABLE: ${{ secrets.OHAI_DOCKER_HUB_ID }}
+
+jobs:
+  virtuoso:
+    runs-on: ubuntu-latest
+    name: Trigger e2e test on Virtuoso
+    steps:
+      - name: Trigger e2e test on Virtuoso
+        if: github.event.action != 'reply'
+        run: |
+          curl -X POST https://api.github.com/repos/carlossscastro/infrastructure-agent/dispatches \
+           -H 'Accept: application/vnd.github.everest-preview+json' \
+           -u ${{ secrets.ACCESS_TOKEN_CARLOS }} \
+          --data '{"event_type": "run", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+      - name: Reply back to Virtuoso
+        if: github.event.action == 'reply'
+        run: |
+          echo "ACK received from '${{ github.event.client_payload.repository }}'" && \
+          curl -X POST https://api.github.com/repos/carlossscastro/infrastructure-agent/dispatches \
+           -H 'Accept: application/vnd.github.everest-preview+json' \
+           -u ${{ secrets.ACCESS_TOKEN_CARLOS }} \
+          --data '{"event_type": "ack", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
