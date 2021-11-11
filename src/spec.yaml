@@ -1,0 +1,1967 @@
+specVersion: '1'
+owningTeam: integrations
+integrationName: redis
+humanReadableIntegrationName: Redis
+entities:
+  - entityType: RedisInstance
+    metrics:
+      - name: redis.instance.connectedSlaves
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - cluster.connectedSlaves
+      - name: redis.instance.aofLastRewriteTimeMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.aofLastRewriteTimeMiliseconds
+      - name: redis.instance.evictedKeysPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: countPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.evictedKeysPerSecond
+      - name: redis.instance.expiredKeysPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: countPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.expiredKeysPerSecond
+      - name: redis.instance.keyspaceHitsPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: countPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.keyspaceHitsPerSecond
+      - name: redis.instance.keyspaceMissesPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: countPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.keyspaceMissesPerSecond
+      - name: redis.instance.latestForkMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.latestForkMilliseconds
+      - name: redis.instance.rdbBgsaveInProgress
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.rdbBgsaveInProgress
+      - name: redis.instance.rdbChangesSinceLastSave
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.rdbChangesSinceLastSave
+      - name: redis.instance.rdbLastBgsaveTimeMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.rdbLastBgsaveTimeMilliseconds
+      - name: redis.instance.rdbLastSaveTime
+        type: gauge
+        defaultResolution: 15
+        unit: seconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.rdbLastSaveTime
+      - name: redis.instance.syncFull
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.syncFull
+      - name: redis.instance.syncPartialErr
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.syncPartialErr
+      - name: redis.instance.syncPartialOk
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - db.syncPartialOk
+      - name: redis.instance.net.blockedClients
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.blockedClients
+      - name: redis.instance.net.clientBiggestInputBuffBytes
+        type: gauge
+        defaultResolution: 15
+        unit: bytes
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.clientBiggestInputBufBytes
+      - name: redis.instance.net.clientLongestOutputList
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.clientLongestOutputList
+      - name: redis.instance.net.commandsProcessedPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: countPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.commandsProcessedPerSecond
+      - name: redis.instance.net.connectedClients
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.connectedClients
+      - name: redis.instance.net.connectionsReceivedPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: countPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.connectionsReceivedPerSecond
+      - name: redis.instance.net.inputBytesPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: bytesPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.inputBytesPerSecond
+      - name: redis.instance.net.outputBytesPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: bytesPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.outputBytesPerSecond
+      - name: redis.instance.net.pubsubChannels
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.pubsubChannels
+      - name: redis.instance.net.pubsubPatterns
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.pubsubPatterns
+      - name: redis.instance.net.rejectedConnectionsPerSecond
+        type: gauge
+        defaultResolution: 15
+        unit: countPerSecond
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - net.rejectedConnectionsPerSecond
+      - name: redis.instance.uptimeMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - software.uptimeMilliseconds
+      - name: redis.instance.system.memFragmentationRatio
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.memFragmentationRatio
+      - name: redis.instance.system.totalSystemMemoryBytes
+        type: gauge
+        defaultResolution: 15
+        unit: bytes
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.totalSystemMemoryBytes
+      - name: redis.instance.system.usedCpuSysChildrenMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedCpuSysChildrenMilliseconds
+      - name: redis.instance.system.usedCpuSysMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedCpuSysMilliseconds
+      - name: redis.instance.system.usedCpuUserChildrenMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedCpuUserChildrenMilliseconds
+      - name: redis.instance.system.usedCpuUserMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedCpuUserMilliseconds
+      - name: redis.instance.system.usedMemoryBytes
+        type: gauge
+        defaultResolution: 15
+        unit: bytes
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedMemoryBytes
+      - name: redis.instance.system.usedMemoryLuaBytes
+        type: gauge
+        defaultResolution: 15
+        unit: bytes
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedMemoryLuaBytes
+      - name: redis.instance.system.usedMemoryPeakBytes
+        type: gauge
+        defaultResolution: 15
+        unit: bytes
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedMemoryPeakBytes
+      - name: redis.instance.system.usedMemoryRssBytes
+        type: gauge
+        defaultResolution: 15
+        unit: bytes
+        migrationInformation:
+          legacyEventType: RedisSample
+          legacyNames:
+            - system.usedMemoryRssBytes
+    tags:
+      - name: redis.port
+        type: string
+        migrationInformation:
+          legacyNames:
+            - port
+          legacyEventTypes:
+            - RedisSample
+      - name: redis.version
+        type: string
+        migrationInformation:
+          legacyNames:
+            - software.version
+          legacyEventTypes:
+            - RedisSample
+      - name: redis.clusterRole
+        type: string
+        migrationInformation:
+          legacyNames:
+            - cluster.role
+          legacyEventTypes:
+            - RedisSample
+      - name: redis.aofLastBgrewriteStatus
+        type: string
+        migrationInformation:
+          legacyNames:
+            - db.aofLastBgrewriteStatus
+          legacyEventTypes:
+            - RedisSample
+      - name: redis.aofLastWriteStatus
+        type: string
+        migrationInformation:
+          legacyNames:
+            - db.aofLastWriteStatus
+          legacyEventTypes:
+            - RedisSample
+      - name: redis.rdbLastBgsaveStatus
+        type: string
+        migrationInformation:
+          legacyNames:
+            - db.rdbLastBgsaveStatus
+          legacyEventTypes:
+            - RedisSample
+      - name: k8s.containerImage
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - containerImage
+          legacyEventTypes:
+            - RedisSample
+      - name: k8s.containerName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - containerName
+          legacyEventTypes:
+            - RedisSample
+      - name: k8s.deploymentName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - deploymentName
+          legacyEventTypes:
+            - RedisSample
+      - name: k8s.namespaceName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - namespaceName
+            - namespace
+          legacyEventTypes:
+            - RedisSample
+      - name: k8s.nodeName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - nodeName
+          legacyEventTypes:
+            - RedisSample
+      - name: k8s.podName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - podName
+          legacyEventTypes:
+            - RedisSample
+      - name: entity.guid
+        type: string
+        description: >-
+          This is an attribute that defines the entity, which is added in the
+          ingestion pipeline.
+        migrationInformation:
+          legacyNames:
+            - entityGuid
+            - nr.entityGuid
+          legacyEventTypes:
+            - RedisSample
+      - name: entity.name
+        type: string
+        description: >-
+          This is an attribute that defines the entity, which is added in the
+          ingestion pipeline.
+        migrationInformation:
+          legacyNames:
+            - entityName
+          legacyEventTypes:
+            - RedisSample
+      - name: entity.id
+        type: string
+        description: >-
+          This is an attribute that defines the entity, which is added in the
+          ingestion pipeline.
+        migrationInformation:
+          legacyNames:
+            - entityId
+          legacyEventTypes:
+            - RedisSample
+      - name: tags.*
+        type: string
+        description: >-
+          These are user-defined tags (* matches any value configured by the
+          customer)
+        migrationInformation:
+          legacyNames:
+            - label.*
+            - ec2Tag_*
+            - provider.ec2Tag_*
+            - tag_*
+          legacyEventTypes:
+            - RedisSample
+      - name: tags.container.*
+        type: string
+        description: >-
+          These are user-defined tags (* matches any value configured by the
+          customer)
+        migrationInformation:
+          legacyNames:
+            - containerLabel_*
+          legacyEventTypes:
+            - RedisSample
+      - name: host.kernelVersion
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - kernelVersion
+          legacyEventTypes:
+            - RedisSample
+      - name: host.linuxDistribution
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - linuxDistribution
+          legacyEventTypes:
+            - RedisSample
+      - name: host.operatingSystem
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - operatingSystem
+          legacyEventTypes:
+            - RedisSample
+      - name: host.windowsFamily
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - windowsFamily
+          legacyEventTypes:
+            - RedisSample
+      - name: host.windowsPlatform
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - windowsPlatform
+          legacyEventTypes:
+            - RedisSample
+      - name: host.windowsVersion
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - windowsVersion
+          legacyEventTypes:
+            - RedisSample
+      - name: host.instanceType
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - instanceType
+          legacyEventTypes:
+            - RedisSample
+      - name: host.hostname
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - hostname
+          legacyEventTypes:
+            - RedisSample
+      - name: host.fullHostname
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - fullHostname
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.region
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - awsRegion
+            - provider.awsRegion
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.accountId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - awsAccountId
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.availabilityZone
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - awsAvailabilityZone
+            - provider.awsAvailabilityZone
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.InstanceId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2InstanceId
+            - provider.ec2InstanceId
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.publicDnsName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PublicDnsName
+            - provider.ec2PublicDnsName
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.state
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2State
+            - provider.ec2State
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.ebsOptimized
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2EbsOptimized
+            - provider.ec2EbsOptimized
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.publicIpAddress
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PublicIpAddress
+            - provider.ec2PublicIpAddress
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.privateIpAddress
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PrivateIpAddress
+            - provider.ec2PrivateIpAddress
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.vpcId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2VpcId
+            - provider.ec2VpcId
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.amiId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2AmiId
+            - provider.ec2AmiId
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.privateDnsName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PrivateDnsName
+            - provider.ec2PrivateDnsName
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.keyName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2KeyName
+            - provider.ec2KeyName
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.subnetId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2SubnetId
+            - provider.ec2SubnetId
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.instanceType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2InstanceType
+            - provider.ec2InstanceType
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.hypervisor
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2Hypervisor
+            - provider.ec2Hypervisor
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.architecture
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2Architecture
+            - provider.ec2Architecture
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.rootDeviceType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2RootDeviceType
+            - provider.ec2RootDeviceType
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.rootDeviceName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2RootDeviceName
+            - provider.ec2RootDeviceName
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.virtualizationType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2VirtualizationType
+            - provider.ec2VirtualizationType
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.placementGroupName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PlacementGroupName
+            - provider.ec2PlacementGroupName
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.ec2.placementGroupTenancy
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PlacementGroupTenancy
+            - provider.ec2PlacementGroupTenancy
+          legacyEventTypes:
+            - RedisSample
+      - name: aws.arn
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - aws.arn
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.subscriptionId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - subscriptionId
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.compute.virtualmachines.vmId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - vmId
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.compute.virtualmachines.vmSize
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - vmSize
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.compute.virtualmachines.image
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - image
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.compute.virtualmachines.availabilitySet
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - availabilitySet
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.resourceType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - type
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.region
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - regionName
+          legacyEventTypes:
+            - RedisSample
+      - name: azure.resourceGroup
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - resourceGroupName
+          legacyEventTypes:
+            - RedisSample
+      - name: gcp.compute.status
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - status
+          legacyEventTypes:
+            - RedisSample
+      - name: gcp.compute.machineType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - machineType
+          legacyEventTypes:
+            - RedisSample
+      - name: gcp.compute.isPreemptible
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - isPreemptible
+          legacyEventTypes:
+            - RedisSample
+      - name: gcp.projectId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - projectId
+          legacyEventTypes:
+            - RedisSample
+      - name: gcp.zone
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - zone
+          legacyEventTypes:
+            - RedisSample
+    internalAttributes:
+      - name: newrelic.integrationName
+        type: string
+        migrationInformation:
+          legacyNames:
+            - integrationName
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.integrationVersion
+        type: string
+        migrationInformation:
+          legacyNames:
+            - integrationVersion
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.agentVersion
+        type: string
+        migrationInformation:
+          legacyNames:
+            - agentVersion
+          legacyEventTypes:
+            - RedisSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.reportingAgent
+        type: string
+        migrationInformation:
+          legacyNames:
+            - reportingAgent
+          legacyEventTypes:
+            - RedisSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.reportingEndpoint
+        type: string
+        migrationInformation:
+          legacyNames:
+            - reportingEndpoint
+          legacyEventTypes:
+            - RedisSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.reportingEntityKey
+        type: string
+        migrationInformation:
+          legacyNames:
+            - reportingEntityKey
+          legacyEventTypes:
+            - RedisSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.hostId
+        type: string
+        migrationInformation:
+          legacyNames:
+            - hostID
+          legacyEventTypes:
+            - RedisSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.countersSource
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - countersSource
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.entityAndPid
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - entityAndPid
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.entityAndMountPoint
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - entityAndMountPoint
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.entityAndInterface
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - entityAndInterface
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.cloudIntegrations.integrationId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - dataSourceId
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.cloudIntegrations.integrationName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - dataSourceName
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.cloudIntegrations.providerAccountId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - providerAccountId
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.cloudIntegrations.providerAccountName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - providerAccountName
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.cloudIntegrations.providerExternalId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - providerExternalId
+          legacyEventTypes:
+            - RedisSample
+      - name: nr.cloudVmType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - nr.cloudVmType
+          legacyEventTypes:
+            - RedisSample
+      - name: nr.performanceMetricsEnabled
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - nr.performanceMetricsEnabled
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.apmApplicationNames
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - apmApplicationNames
+          legacyEventTypes:
+            - RedisSample
+      - name: newrelic.apmApplicationIds
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - apmApplicationIds
+          legacyEventTypes:
+            - RedisSample
+    ignoredAttributes:
+      - agentName
+      - coreCount
+      - processorCount
+      - systemMemoryBytes
+      - entityKey
+      - externalKey
+      - warningViolationCount
+      - criticalViolationCount
+      - displayName
+      - event_type
+      - provider
+      - networkTag.*
+  - entityType: RedisKeyspace
+    metrics:
+      - name: redis.keyspace.avgTtlMilliseconds
+        type: gauge
+        defaultResolution: 15
+        unit: milliseconds
+        migrationInformation:
+          legacyEventType: RedisKeyspaceSample
+          legacyNames:
+            - db.avgTtlMilliseconds
+      - name: redis.keyspace.expires
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisKeyspaceSample
+          legacyNames:
+            - db.expires
+      - name: redis.keyspace.keys
+        type: gauge
+        defaultResolution: 15
+        unit: count
+        migrationInformation:
+          legacyEventType: RedisKeyspaceSample
+          legacyNames:
+            - db.keys
+    tags:
+      - name: redis.port
+        type: string
+        migrationInformation:
+          legacyNames:
+            - port
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: redis.keyspace
+        type: string
+        migrationInformation:
+          legacyNames:
+            - db.keyspace
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: k8s.containerImage
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - containerImage
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: k8s.containerName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - containerName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: k8s.deploymentName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - deploymentName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: k8s.namespaceName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - namespaceName
+            - namespace
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: k8s.nodeName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - nodeName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: k8s.podName
+        type: string
+        description: >-
+          This attribute is added by nri-kubernetes if this integration is
+          running in a instrumented K8s cluster.
+        migrationInformation:
+          legacyNames:
+            - podName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: entity.guid
+        type: string
+        description: >-
+          This is an attribute that defines the entity, which is added in the
+          ingestion pipeline.
+        migrationInformation:
+          legacyNames:
+            - entityGuid
+            - nr.entityGuid
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: entity.name
+        type: string
+        description: >-
+          This is an attribute that defines the entity, which is added in the
+          ingestion pipeline.
+        migrationInformation:
+          legacyNames:
+            - entityName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: entity.id
+        type: string
+        description: >-
+          This is an attribute that defines the entity, which is added in the
+          ingestion pipeline.
+        migrationInformation:
+          legacyNames:
+            - entityId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: tags.*
+        type: string
+        description: >-
+          These are user-defined tags (* matches any value configured by the
+          customer)
+        migrationInformation:
+          legacyNames:
+            - label.*
+            - ec2Tag_*
+            - provider.ec2Tag_*
+            - tag_*
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: tags.container.*
+        type: string
+        description: >-
+          These are user-defined tags (* matches any value configured by the
+          customer)
+        migrationInformation:
+          legacyNames:
+            - containerLabel_*
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.kernelVersion
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - kernelVersion
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.linuxDistribution
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - linuxDistribution
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.operatingSystem
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - operatingSystem
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.windowsFamily
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - windowsFamily
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.windowsPlatform
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - windowsPlatform
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.windowsVersion
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - windowsVersion
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.instanceType
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - instanceType
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.hostname
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - hostname
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: host.fullHostname
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - fullHostname
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.region
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - awsRegion
+            - provider.awsRegion
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.accountId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - awsAccountId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.availabilityZone
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - awsAvailabilityZone
+            - provider.awsAvailabilityZone
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.InstanceId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2InstanceId
+            - provider.ec2InstanceId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.publicDnsName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PublicDnsName
+            - provider.ec2PublicDnsName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.state
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2State
+            - provider.ec2State
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.ebsOptimized
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2EbsOptimized
+            - provider.ec2EbsOptimized
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.publicIpAddress
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PublicIpAddress
+            - provider.ec2PublicIpAddress
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.privateIpAddress
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PrivateIpAddress
+            - provider.ec2PrivateIpAddress
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.vpcId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2VpcId
+            - provider.ec2VpcId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.amiId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2AmiId
+            - provider.ec2AmiId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.privateDnsName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PrivateDnsName
+            - provider.ec2PrivateDnsName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.keyName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2KeyName
+            - provider.ec2KeyName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.subnetId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2SubnetId
+            - provider.ec2SubnetId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.instanceType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2InstanceType
+            - provider.ec2InstanceType
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.hypervisor
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2Hypervisor
+            - provider.ec2Hypervisor
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.architecture
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2Architecture
+            - provider.ec2Architecture
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.rootDeviceType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2RootDeviceType
+            - provider.ec2RootDeviceType
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.rootDeviceName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2RootDeviceName
+            - provider.ec2RootDeviceName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.virtualizationType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2VirtualizationType
+            - provider.ec2VirtualizationType
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.placementGroupName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PlacementGroupName
+            - provider.ec2PlacementGroupName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.ec2.placementGroupTenancy
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - ec2PlacementGroupTenancy
+            - provider.ec2PlacementGroupTenancy
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: aws.arn
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - aws.arn
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.subscriptionId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - subscriptionId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.compute.virtualmachines.vmId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - vmId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.compute.virtualmachines.vmSize
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - vmSize
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.compute.virtualmachines.image
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - image
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.compute.virtualmachines.availabilitySet
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - availabilitySet
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.resourceType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - type
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.region
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - regionName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: azure.resourceGroup
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - resourceGroupName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: gcp.compute.status
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - status
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: gcp.compute.machineType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - machineType
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: gcp.compute.isPreemptible
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - isPreemptible
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: gcp.projectId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - projectId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: gcp.zone
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - zone
+          legacyEventTypes:
+            - RedisKeyspaceSample
+    internalAttributes:
+      - name: newrelic.integrationName
+        type: string
+        migrationInformation:
+          legacyNames:
+            - integrationName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.integrationVersion
+        type: string
+        migrationInformation:
+          legacyNames:
+            - integrationVersion
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.agentVersion
+        type: string
+        migrationInformation:
+          legacyNames:
+            - agentVersion
+          legacyEventTypes:
+            - RedisKeyspaceSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.reportingAgent
+        type: string
+        migrationInformation:
+          legacyNames:
+            - reportingAgent
+          legacyEventTypes:
+            - RedisKeyspaceSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.reportingEndpoint
+        type: string
+        migrationInformation:
+          legacyNames:
+            - reportingEndpoint
+          legacyEventTypes:
+            - RedisKeyspaceSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.reportingEntityKey
+        type: string
+        migrationInformation:
+          legacyNames:
+            - reportingEntityKey
+          legacyEventTypes:
+            - RedisKeyspaceSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.hostId
+        type: string
+        migrationInformation:
+          legacyNames:
+            - hostID
+          legacyEventTypes:
+            - RedisKeyspaceSample
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+      - name: newrelic.countersSource
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - countersSource
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.entityAndPid
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - entityAndPid
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.entityAndMountPoint
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - entityAndMountPoint
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.entityAndInterface
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - entityAndInterface
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.cloudIntegrations.integrationId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - dataSourceId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.cloudIntegrations.integrationName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - dataSourceName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.cloudIntegrations.providerAccountId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - providerAccountId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.cloudIntegrations.providerAccountName
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - providerAccountName
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.cloudIntegrations.providerExternalId
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - providerExternalId
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: nr.cloudVmType
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - nr.cloudVmType
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: nr.performanceMetricsEnabled
+        type: string
+        description: >-
+          This is an attribute which comes from Cloud VMs integrations (AWS EC2,
+          Azure VMs, GCP VMs) if they are enabled.
+        migrationInformation:
+          legacyNames:
+            - nr.performanceMetricsEnabled
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.apmApplicationNames
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - apmApplicationNames
+          legacyEventTypes:
+            - RedisKeyspaceSample
+      - name: newrelic.apmApplicationIds
+        type: string
+        description: >-
+          This is an attribute which comes from the host that is reporting the
+          entity.
+        migrationInformation:
+          legacyNames:
+            - apmApplicationIds
+          legacyEventTypes:
+            - RedisKeyspaceSample
+    ignoredAttributes:
+      - agentName
+      - coreCount
+      - processorCount
+      - systemMemoryBytes
+      - entityKey
+      - externalKey
+      - warningViolationCount
+      - criticalViolationCount
+      - displayName
+      - event_type
+      - provider
+      - networkTag.*

@@ -6,10 +6,14 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/http"
 	"os"
 	"runtime"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 
 	sdkArgs "github.com/newrelic/infra-integrations-sdk/args"
 	"github.com/newrelic/infra-integrations-sdk/data/attribute"
@@ -29,7 +33,7 @@ type argumentList struct {
 	Username              string       `help:"Username to use when connecting to the Redis server."`
 	Password              string       `help:"Password to use when connecting to the Redis server."`
 	UseUnixSocket         bool         `default:"false" help:"Adds the UnixSocketPath value to the entity. If you are monitoring more than one Redis instance on the same host using Unix sockets, then you should set it to true."`
-	RemoteMonitoring      bool         `default:"false" help:"Allows to monitor multiple instances as 'remote' entity. Set to 'FALSE' value for backwards compatibility otherwise set to 'TRUE'"`
+	RemoteMonitoring      bool         `default:"true" help:"Allows to monitor multiple instances as 'remote' entity. Set to 'FALSE' value for backwards compatibility otherwise set to 'TRUE'"`
 	RenamedCommands       sdkArgs.JSON `default:"" help:"Map of default redis commands to their renamed form, if rename-command config has been used in the redis server."`
 	ConfigInventory       bool         `default:"true" help:"Provides CONFIG inventory information. Set it to 'false' in environments where the Redis CONFIG command is prohibited (e.g. AWS ElastiCache)"`
 	ShowVersion           bool         `default:"false" help:"Print build information and exit"`
@@ -51,106 +55,119 @@ var (
 	errorArgs = errors.New("no connection method available, UnixSocketPath or Hostname and Port should be populated")
 )
 
+func promServer() {
+	http.Handle("/metrics", promhttp.Handler())
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
 func main() {
+	go promServer()
+
+	s := LoadData()
+	s.RegisterMetrics()
 	i, err := createIntegration()
 	fatalIfErr(err)
 
-	if args.ShowVersion {
-		printVersion()
-		os.Exit(0)
-	}
+	for {
 
-	dialOptions := standardDialOptions(args.Username, args.Password)
-
-	var c *redisConn
-	switch {
-	// Notice that we are not checking UseUnixSocket since it is not used to define how to connect, but merely the entity name.
-	// There are users having use_unix_socket=true and then connecting with hostname and port,
-	// or use_unix_socket=false and then connecting with the unix socket.
-	case args.UnixSocketPath != "":
-		c, err = newSocketRedisCon(args.UnixSocketPath, dialOptions...)
-		fatalIfErr(err)
-	case args.Hostname != "" && args.Port > 0:
-		if args.UseTLS {
-			tlsDialOptions := tlsDialOptions(args.UseTLS, args.TLSInsecureSkipVerify)
-			dialOptions = append(dialOptions, tlsDialOptions...)
+		if args.ShowVersion {
+			printVersion()
+			os.Exit(0)
 		}
-		redisURL := net.JoinHostPort(args.Hostname, strconv.Itoa(args.Port))
-		c, err = newNetworkRedisCon(redisURL, dialOptions...)
-		fatalIfErr(err)
-	default:
-		log.Fatal(errorArgs)
-	}
 
-	defer c.Close()
+		dialOptions := standardDialOptions(args.Username, args.Password)
 
-	// Support using renamed form of redis commands, if 'renamed-command' config is used in Redis server
-	if args.RenamedCommands.Get() != nil {
-		renamedCommands, err := getRenamedCommands(args.RenamedCommands)
-		fatalIfErr(err)
-
-		c.RenameCommands(renamedCommands)
-	}
-
-	info, err := c.GetInfo()
-	fatalIfErr(err)
-
-	rawMetrics, rawKeyspaceMetrics, metricsErr := getRawMetrics(info)
-
-	e, err := entity(i, &args)
-	fatalIfErr(err)
-
-	if args.HasInventory() {
-		var config map[string]string
-		if args.ConfigInventory {
-			config, err = c.GetConfig()
-			if err != nil {
-				fmtStr := "%v. Configuration inventory won't be reported"
-				if _, ok := err.(configConnectionError); ok {
-					fmtStr += ". This may be expected if you are monitoring a managed " +
-						"Redis instance with limited permissions. " +
-						"Set the 'config_inventory' argument to 'false' to remove this message"
-				}
-				log.Warn(fmtStr, err)
+		var c *redisConn
+		switch {
+		// Notice that we are not checking UseUnixSocket since it is not used to define how to connect, but merely the entity name.
+		// There are users having use_unix_socket=true and then connecting with hostname and port,
+		// or use_unix_socket=false and then connecting with the unix socket.
+		case args.UnixSocketPath != "":
+			c, err = newSocketRedisCon(args.UnixSocketPath, dialOptions...)
+			fatalIfErr(err)
+		case args.Hostname != "" && args.Port > 0:
+			if args.UseTLS {
+				tlsDialOptions := tlsDialOptions(args.UseTLS, args.TLSInsecureSkipVerify)
+				dialOptions = append(dialOptions, tlsDialOptions...)
 			}
+			redisURL := net.JoinHostPort(args.Hostname, strconv.Itoa(args.Port))
+			c, err = newNetworkRedisCon(redisURL, dialOptions...)
+			fatalIfErr(err)
+		default:
+			log.Fatal(errorArgs)
 		}
-		rawInventory := getRawInventory(config, rawMetrics)
-		populateInventory(e.Inventory, rawInventory)
-	}
 
-	if args.HasMetrics() {
-		fatalIfErr(metricsErr)
+		defer c.Close()
 
-		ms := metricSet(e, "RedisSample", args.Hostname, args.Port, args.RemoteMonitoring)
-		fatalIfErr(populateMetrics(ms, rawMetrics, metricsDefinition))
+		// Support using renamed form of redis commands, if 'renamed-command' config is used in Redis server
+		if args.RenamedCommands.Get() != nil {
+			renamedCommands, err := getRenamedCommands(args.RenamedCommands)
+			fatalIfErr(err)
 
-		var rawCustomKeysMetric map[string]map[string]keyInfo
-		keysFlagPresent := args.Keys.Get() != nil
+			c.RenameCommands(renamedCommands)
+		}
 
-		if keysFlagPresent {
-			databaseKeys := getDBAndKeys(args.Keys)
-			_, keysFlagErr := validateKeysFlag(databaseKeys, args.KeysLimit)
+		info, err := c.GetInfo()
+		fatalIfErr(err)
 
-			if keysFlagErr != nil {
-				log.Warn("Error processing keys flag: %v", keysFlagErr)
-			} else {
-				rawCustomKeysMetric, err = c.GetRawCustomKeys(databaseKeys)
+		rawMetrics, rawKeyspaceMetrics, metricsErr := getRawMetrics(info)
+
+		e, err := entity(i, &args)
+		fatalIfErr(err)
+
+		if args.HasInventory() {
+			var config map[string]string
+			if args.ConfigInventory {
+				config, err = c.GetConfig()
 				if err != nil {
-					log.Warn("Got error: %v", err)
+					fmtStr := "%v. Configuration inventory won't be reported"
+					if _, ok := err.(configConnectionError); ok {
+						fmtStr += ". This may be expected if you are monitoring a managed " +
+							"Redis instance with limited permissions. " +
+							"Set the 'config_inventory' argument to 'false' to remove this message"
+					}
+					log.Warn(fmtStr, err)
+				}
+			}
+			rawInventory := getRawInventory(config, rawMetrics)
+			populateInventory(e.Inventory, rawInventory)
+		}
+
+		if args.HasMetrics() {
+			fatalIfErr(metricsErr)
+
+			ms := metricSet(e, "RedisSample", args.Hostname, args.Port, args.RemoteMonitoring)
+			fatalIfErr(populateMetrics(ms, rawMetrics, metricsDefinition))
+
+			var rawCustomKeysMetric map[string]map[string]keyInfo
+			keysFlagPresent := args.Keys.Get() != nil
+
+			if keysFlagPresent {
+				databaseKeys := getDBAndKeys(args.Keys)
+				_, keysFlagErr := validateKeysFlag(databaseKeys, args.KeysLimit)
+
+				if keysFlagErr != nil {
+					log.Warn("Error processing keys flag: %v", keysFlagErr)
+				} else {
+					rawCustomKeysMetric, err = c.GetRawCustomKeys(databaseKeys)
+					if err != nil {
+						log.Warn("Got error: %v", err)
+					}
+				}
+			}
+
+			ms = metricSet(e, "RedisKeyspaceSample", args.Hostname, args.Port, args.RemoteMonitoring)
+			for db, keyspaceMetrics := range rawKeyspaceMetrics {
+				fatalIfErr(populateMetrics(ms, keyspaceMetrics, keyspaceMetricsDefinition))
+				if _, ok := rawCustomKeysMetric[db]; ok && keysFlagPresent {
+					populateCustomKeysMetric(ms, rawCustomKeysMetric[db])
 				}
 			}
 		}
-
-		ms = metricSet(e, "RedisKeyspaceSample", args.Hostname, args.Port, args.RemoteMonitoring)
-		for db, keyspaceMetrics := range rawKeyspaceMetrics {
-			fatalIfErr(populateMetrics(ms, keyspaceMetrics, keyspaceMetricsDefinition))
-			if _, ok := rawCustomKeysMetric[db]; ok && keysFlagPresent {
-				populateCustomKeysMetric(ms, rawCustomKeysMetric[db])
-			}
-		}
+		s.SetMetrics(i)
+		i.Publish()
+		time.Sleep(time.Second * 15)
 	}
-
-	fatalIfErr(i.Publish())
 }
 
 func printVersion() {
